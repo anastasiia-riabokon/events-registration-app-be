@@ -5,10 +5,11 @@ export const getAllEvents = ctrlWrapper(async (req, res) => {
   const {page = 1, limit = 12} = req.query;
   const skip = (page - 1) * limit;
 
-  const quantityEvents = await eventsServices.countEvents();
+  const total = await eventsServices.countEvents();
+  const totalPages = Math.ceil(total / limit);
 
   const result = await eventsServices.listEvents({skip, limit});
-  res.json({quantityEvents, result});
+  res.json({total, totalPages, result});
 });
 
 export const getFilterEvents = ctrlWrapper(async (req, res) => {
