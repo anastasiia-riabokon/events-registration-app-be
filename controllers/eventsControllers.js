@@ -22,3 +22,9 @@ export const getFilterEvents = ctrlWrapper(async (req, res) => {
   const result = await eventsServices.listEvents({filter});
   res.json(result);
 });
+
+export const getOrganizer = ctrlWrapper(async (req, res) => {
+  const result = await eventsServices.listEvents({});
+  const organizer = result.map((item) => item.organizer);
+  res.json(organizer);
+});
